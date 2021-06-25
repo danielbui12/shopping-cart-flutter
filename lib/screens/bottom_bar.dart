@@ -60,6 +60,7 @@ class _BottomBarState extends State<BottomBar> {
         child: FloatingActionButton(
           hoverElevation: 10.0,
           backgroundColor: Colors.amber[700],
+          hoverColor: Colors.amber,
           splashColor: Colors.black87,
           tooltip: 'Search',
           elevation: 10.0,
