@@ -54,8 +54,7 @@ class _BottomBarState extends State<BottomBar> {
         unselectedItemColor: Colors.grey,
         onTap: _selecPage,
       ),
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.miniCenterDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Padding(
         padding: const EdgeInsets.all(8.0),
         child: FloatingActionButton(
