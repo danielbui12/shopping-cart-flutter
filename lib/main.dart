@@ -13,19 +13,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) {
-            return darkThemeProvider;
-          }),
-        ],
-        child:
-            Consumer<DarkThemeProvider>(builder: (context, themeData, child) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: "Flutter Demo App",
-            theme: Styles.themeData(darkThemeProvider.darkTheme, context),
-            home: BottomBar(),
-          );
-        }));
+      providers: [
+        ChangeNotifierProvider(create: (_) {
+          return darkThemeProvider;
+        }),
+      ],
+      builder: (context, child) =>
+          Consumer<DarkThemeProvider>(builder: (context, themeData, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: "Flutter Demo App",
+          theme: Styles.themeData(darkThemeProvider.darkTheme, context),
+          home: BottomBar(),
+        );
+      }),
+    );
   }
 }
