@@ -10,6 +10,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   DarkThemeProvider darkThemeProvider = DarkThemeProvider();
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/provider/darkTheme.dart';
 import 'package:myapp/screens/cart.dart';
 import 'package:myapp/screens/feeds.dart';
 import 'package:myapp/screens/home.dart';
@@ -15,10 +16,17 @@ class BottomBar extends StatefulWidget {
 class _BottomBarState extends State<BottomBar> {
   int _selectedPageIndex = 4;
   List<Map<String, Widget>> _pages = [];
+  DarkThemeProvider darkThemeProvider = DarkThemeProvider();
+
+  _getCurrentTheme() async {
+    darkThemeProvider.darkTheme =
+        await darkThemeProvider.darkThemePreference.getTheme();
+  }
 
   @override
   void initState() {
     super.initState();
+    _getCurrentTheme();
     _pages = [
       {"page": Home()},
       {"page": Feed()},

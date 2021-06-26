@@ -166,7 +166,7 @@ class _UserInfoState extends State<UserInfo> {
 
   _buildFab() {
     //start position
-    final double defaultTopMargin = 180.0 - 4.0;
+    final double defaultTopMargin = 200.0 - 4.0;
     final double scaleStart = 160.0;
     final double scaleEnd = scaleStart / 2.0;
     double top = defaultTopMargin;
