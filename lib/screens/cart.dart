@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/const/Colors.dart';
 import 'package:myapp/provider/darkTheme.dart';
 import 'package:myapp/screens/cart/cart_empty.dart';
 import 'package:myapp/screens/cart/cart_full.dart';
@@ -22,7 +23,7 @@ class Cart extends StatelessWidget {
                     margin: const EdgeInsets.only(right: 16.0),
                     child: IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.delete),
+                      icon: Icon(Icons.delete_outline),
                     ))
               ],
             ),
@@ -41,7 +42,13 @@ class Cart extends StatelessWidget {
   _checkoutSection(bool themeChange) {
     return Container(
       decoration: BoxDecoration(
-          border: Border(top: BorderSide(color: Colors.grey, width: 0.1))),
+          border: Border(
+              top: BorderSide(
+                  color: !themeChange ? Colors.black : Colors.white,
+                  width: 0.5),
+              bottom: BorderSide(
+                  color: !themeChange ? Colors.black : Colors.white,
+                  width: 0.5))),
       child: Container(
         margin: const EdgeInsets.only(bottom: 32.0),
         padding: const EdgeInsets.all(8.0),
@@ -49,20 +56,27 @@ class Cart extends StatelessWidget {
           children: <Widget>[
             Expanded(
               flex: 2,
-              child: Material(
-                borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                color: Colors.red,
-                child: InkWell(
-                  onTap: () {},
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "Check out",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: themeChange ? Colors.white : Colors.black,
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w600),
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                    gradient: LinearGradient(colors: [
+                      ColorsConsts.gradiendLStart,
+                      ColorsConsts.gradiendLEnd
+                    ])),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: () {},
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Checkout",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                 ),

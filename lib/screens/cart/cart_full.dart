@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/const/Colors.dart';
 import 'package:myapp/provider/darkTheme.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +13,7 @@ class _CartFullState extends State<CartFull> {
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context).darkTheme;
     return Container(
-      height: 150.0,
+      height: 145.0,
       margin: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
@@ -46,13 +47,12 @@ class _CartFullState extends State<CartFull> {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 15.0),
+                              fontWeight: FontWeight.bold, fontSize: 20.0),
                         ),
                       ),
                       IconButton(
                         color: Theme.of(context).buttonColor,
-                        hoverColor: null,
-                        icon: Icon(Icons.delete),
+                        icon: Icon(Icons.delete_outline),
                         onPressed: () {},
                       )
                     ],
@@ -68,64 +68,44 @@ class _CartFullState extends State<CartFull> {
                       )
                     ],
                   ),
-                  Row(
-                    children: <Widget>[
-                      Text("Sub Total: "),
-                      SizedBox(width: 5.0),
-                      Text(
-                        "\$1300.000",
-                        style: TextStyle(
-                            color: !themeChange
-                                ? Theme.of(context).accentColor
-                                : Colors.brown.shade900,
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold),
-                      )
-                    ],
-                  ),
+                  SizedBox(height: 8.0),
+                  _TextWrapper(
+                      "Sub Total: ",
+                      "\$1300.000",
+                      !themeChange
+                          ? Theme.of(context).accentColor
+                          : Colors.blueGrey.shade400),
                   Row(
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.only(right: 30.0),
                         child: Text("Ship Free",
                             style: TextStyle(
+                              fontWeight: FontWeight.w600,
                               color: !themeChange
                                   ? Theme.of(context).accentColor
-                                  : Colors.brown.shade900,
+                                  : Colors.blueGrey.shade400,
                             )),
                       ),
                       Row(
                         children: <Widget>[
-                          InkWell(
-                            onTap: () {},
-                            child: Text(
-                              "-",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 32.0),
-                            ),
-                          ),
-                          Card(
+                          _AcitonButton("-", 32.0, Colors.red),
+                          Container(
+                            decoration: BoxDecoration(
+                                gradient: LinearGradient(colors: [
+                              ColorsConsts.gradiendLStart,
+                              ColorsConsts.gradiendLEnd
+                            ])),
+                            width: MediaQuery.of(context).size.width * 0.12,
                             margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                            elevation: 10.0,
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.12,
-                              margin: const EdgeInsets.all(8.0),
-                              child: Text(
-                                "1",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16.0),
-                              ),
+                            child: Text(
+                              "1",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16.0),
                             ),
                           ),
-                          InkWell(
-                            onTap: () {},
-                            child: Text("+",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 24.0)),
-                          )
+                          _AcitonButton("+", 24.0, Colors.green)
                         ],
                       )
                     ],
@@ -135,6 +115,31 @@ class _CartFullState extends State<CartFull> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _TextWrapper(String text1, String text2, color) {
+    return Row(
+      children: <Widget>[
+        Text(text1),
+        SizedBox(width: 5.0),
+        Text(
+          text2,
+          style: TextStyle(
+              fontSize: 16.0, fontWeight: FontWeight.bold, color: color),
+        )
+      ],
+    );
+  }
+
+  Widget _AcitonButton(String text, double fontSize, Color color) {
+    return InkWell(
+      onTap: () {},
+      child: Text(
+        text,
+        style: TextStyle(
+            color: color, fontWeight: FontWeight.bold, fontSize: fontSize),
       ),
     );
   }
