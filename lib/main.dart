@@ -8,8 +8,24 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   DarkThemeProvider darkThemeProvider = DarkThemeProvider();
+
+  _getCurrentTheme() async {
+    darkThemeProvider.darkTheme =
+        await darkThemeProvider.darkThemePreference.getTheme();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getCurrentTheme();
+  }
 
   @override
   Widget build(BuildContext context) {
