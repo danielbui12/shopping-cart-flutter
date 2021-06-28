@@ -13,7 +13,7 @@ class _CartFullState extends State<CartFull> {
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context).darkTheme;
     return Container(
-      height: 145.0,
+      height: 153.0,
       margin: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(

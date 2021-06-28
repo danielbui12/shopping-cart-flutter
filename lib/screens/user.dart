@@ -117,14 +117,6 @@ class _UserInfoState extends State<UserInfo> {
                   _userListTile(context, "Phone", "0913115560", 1),
                   _userListTile(
                       context, "Shipping adress", "Hà Đông ,Hà Nội", 2),
-                  _userListTile(
-                      context, "Shipping adress", "Hà Đông ,Hà Nội", 2),
-                  _userListTile(
-                      context, "Shipping adress", "Hà Đông ,Hà Nội", 2),
-                  _userListTile(
-                      context, "Shipping adress", "Hà Đông ,Hà Nội", 2),
-                  _userListTile(
-                      context, "Shipping adress", "Hà Đông ,Hà Nội", 2),
                   _userListTile(context, "Joined Date", "12/01/2002", 3),
                   _titleWrapper("User Setting"),
                   Container(
