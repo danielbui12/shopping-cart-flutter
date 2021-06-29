@@ -16,19 +16,35 @@ class _FeedProductsState extends State<FeedProducts> {
           borderRadius: BorderRadius.all(Radius.circular(8.0))),
       child: Column(
         children: <Widget>[
-          Container(
-            width: double.infinity,
-            constraints: BoxConstraints(
-                minHeight: 100,
-                maxHeight: MediaQuery.of(context).size.height * 0.3),
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                  image: DecorationImage(
-                      image: NetworkImage(
-                          "https://cdn.tgdd.vn/Products/Images/7077/229044/apple-watch-s6-40mm-vien-nhom-day-cao-su-01-600x600.jpg"),
-                      fit: BoxFit.fill)),
-            ),
+          Stack(
+            children: [
+              Container(
+                constraints: BoxConstraints(
+                    minHeight: 100,
+                    maxHeight: MediaQuery.of(context).size.height * 0.3),
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      image: DecorationImage(
+                          image: NetworkImage(
+                              "https://cdn.tgdd.vn/Products/Images/7077/229044/apple-watch-s6-40mm-vien-nhom-day-cao-su-01-600x600.jpg"),
+                          fit: BoxFit.fill)),
+                ),
+              ),
+              Container(
+                  decoration: BoxDecoration(
+                      color: Colors.pink,
+                      borderRadius: BorderRadius.all(Radius.circular(8.0))),
+                  width: 50,
+                  height: 25,
+                  child: Center(
+                    child: Text(
+                      "NEW",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.white),
+                    ),
+                  ))
+            ],
           ),
           Container(
             padding: const EdgeInsets.only(left: 6.0),

@@ -13,7 +13,7 @@ class BottomBar extends StatefulWidget {
 }
 
 class _BottomBarState extends State<BottomBar> {
-  int _selectedPageIndex = 1;
+  int _selectedPageIndex = 0;
   List<Map<String, Widget>> _pages = [];
 
   @override
