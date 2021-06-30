@@ -56,17 +56,25 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/emptycart.png
-    - assets/images/addidas.jpg
-    - assets/images/apple.jpg
     - assets/images/carousel1.png
     - assets/images/carousel2.jpeg
     - assets/images/carousel3.jpg
     - assets/images/carousel4.png
+    - assets/images/addidas.jpg
+    - assets/images/apple.jpg
     - assets/images/Dell.jpg
     - assets/images/h&m.jpg
     - assets/images/Huawei.jpg
     - assets/images/nike.jpg
     - assets/images/samsung.jpg
+    - assets/images/CatBeauty.jpg
+    - assets/images/CatClothes.jpg
+    - assets/images/CatFurniture.jpg
+    - assets/images/CatLaptops.png
+    - assets/images/CatPhones.png
+    - assets/images/CatShoes.jpg
+    - assets/images/CatWatches.jpg
+    - assets/images/empty-wishlist.png
     
     # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -48,7 +48,7 @@ class _BottomBarState extends State<BottomBar> {
               icon: Icon(Icons.shopping_cart), label: "Cart"),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "User")
         ],
-        backgroundColor: Colors.white54,
+        backgroundColor: Theme.of(context).bottomAppBarColor,
         currentIndex: _selectedPageIndex,
         selectedItemColor: Colors.amber[800],
         unselectedItemColor: Colors.grey,

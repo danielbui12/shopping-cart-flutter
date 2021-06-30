@@ -1,12 +1,10 @@
 import 'package:backdrop/backdrop.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_card_swipper/flutter_card_swiper.dart';
 import 'package:myapp/const/Colors.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_card_swipper/flutter_card_swiper.dart';
-import 'package:flutter_card_swipper/widgets/flutter_page_indicator/flutter_page_indicator.dart';
-
 import 'package:flutter/cupertino.dart';
+import 'package:myapp/screens/home/app_swip.dart';
+import 'package:myapp/screens/home/brands_swip.dart';
+import 'package:myapp/screens/home/category.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -18,6 +16,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BackdropScaffold(
+        frontLayerBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
         headerHeight: MediaQuery.of(context).size.height * 0.25,
         appBar: BackdropAppBar(
           title: Text("Home"),
@@ -49,36 +48,58 @@ class _HomeState extends State<Home> {
         backLayer: Center(
           child: Text("Home"),
         ),
-        frontLayer: Swiper(
-          index: 0,
-          itemBuilder: (BuildContext context, int index) {
-            return Column(
-              children: [
-                Container(
-                  height: 190.0,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                    image: AssetImage(
-                      images[index],
-                    ),
-                    fit: BoxFit.fill,
-                  )),
+        frontLayer: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppSwip(),
+              SizedBox(height: 25.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 19.0, horizontal: 16.0),
+                child: Text(
+                  "Categories",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
                 ),
-              ],
-            );
-          },
-          autoplay: true,
-          itemCount: images.length,
-          scrollDirection: Axis.horizontal,
+              ),
+              Container(
+                height: 205.0,
+                width: double.infinity,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 7,
+                    itemBuilder: (BuildContext context, int i) => Category(i)),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      "Popular brands",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 20.0),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: Text("View all...",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).textSelectionColor)),
+                    ),
+                  )
+                ],
+              ),
+              BrandsSwip(),
+              SizedBox(height: 20)
+            ],
+          ),
         ),
       ),
     );
   }
 }
-
-List<String> images = [
-  "assets/images/carousel1.png",
-  "assets/images/carousel2.jpeg",
-  "assets/images/carousel3.jpg",
-  "assets/images/carousel4.png"
-];
