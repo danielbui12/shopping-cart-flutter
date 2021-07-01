@@ -6,7 +6,7 @@ class BrandsSwip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      height: 200.0,
+      height: 250.0,
       child: Swiper(
         index: 0,
         itemBuilder: (BuildContext context, int index) {
@@ -24,6 +24,7 @@ class BrandsSwip extends StatelessWidget {
         autoplay: true,
         itemCount: brandsImg.length,
         scrollDirection: Axis.horizontal,
+        onTap: (index) => Navigator.of(context).pushNamed("/brandItem", arguments: {index}),
       ),
     );
   }

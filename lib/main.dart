@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/const/theme.dart';
 import 'package:myapp/provider/darkTheme.dart';
 import 'package:myapp/screens/bottom_bar.dart';
+import 'package:myapp/screens/home/navigation_rail/brand_products.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -42,6 +43,9 @@ class _MyAppState extends State<MyApp> {
           title: "Flutter Demo App",
           theme: Styles.themeData(darkThemeProvider.darkTheme, context),
           home: BottomBar(),
+          routes: <String, WidgetBuilder> {
+            "/brandItem":(BuildContext context) => BrandProducts(),
+          },
         );
       }),
     );

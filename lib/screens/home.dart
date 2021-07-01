@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:myapp/screens/home/app_swip.dart';
 import 'package:myapp/screens/home/brands_swip.dart';
 import 'package:myapp/screens/home/category.dart';
+import 'package:myapp/screens/home/popular_product.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -53,7 +54,7 @@ class _HomeState extends State<Home> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AppSwip(),
-              SizedBox(height: 25.0),
+              SizedBox(height: 32.0),
               Padding(
                 padding: const EdgeInsets.symmetric(
                     vertical: 19.0, horizontal: 16.0),
@@ -74,7 +75,7 @@ class _HomeState extends State<Home> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.only(left: 19.0, bottom: 19),
                     child: Text(
                       "Popular brands",
                       style: TextStyle(
@@ -84,7 +85,8 @@ class _HomeState extends State<Home> {
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () =>
+                          Navigator.of(context).pushNamed("/brandItem", arguments: {7}),
                       child: Text("View all...",
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -94,12 +96,53 @@ class _HomeState extends State<Home> {
                   )
                 ],
               ),
+              // _horizontalTitle("Popular brands", () {}),
               BrandsSwip(),
-              SizedBox(height: 20)
+              SizedBox(height: 36.0),
+              _horizontalTitle("Popular products", () {}),
+              Container(
+                height: 258.0,
+                width: double.infinity,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 10,
+                    itemBuilder: (BuildContext context, int i) => Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: PopularProducts())),
+              ),
+              SizedBox(height: 20),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  // onTap: (index) => Navigator.of(context).pushNamed("/brandItem", arguments: {index}),
+
+  Widget _horizontalTitle(String title, onPress) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(left: 19.0, bottom: 19),
+          child: Text(
+            title,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ElevatedButton(
+            onPressed: onPress,
+            child: Text("View all...",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).textSelectionColor)),
+          ),
+        )
+      ],
     );
   }
 }
