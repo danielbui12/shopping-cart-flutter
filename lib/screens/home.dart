@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/const/Colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:myapp/screens/home/app_swip.dart';
+import 'package:myapp/screens/home/backlayer.dart';
 import 'package:myapp/screens/home/brands_swip.dart';
 import 'package:myapp/screens/home/category.dart';
 import 'package:myapp/screens/home/popular_product.dart';
@@ -46,9 +47,7 @@ class _HomeState extends State<Home> {
             )
           ],
         ),
-        backLayer: Center(
-          child: Text("Home"),
-        ),
+        backLayer: BackLayer(),
         frontLayer: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,9 +116,7 @@ class _HomeState extends State<Home> {
       ),
     );
   }
-
-  // onTap: (index) => Navigator.of(context).pushNamed("/brandItem", arguments: {index}),
-
+  
   Widget _horizontalTitle(String title, onPress) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

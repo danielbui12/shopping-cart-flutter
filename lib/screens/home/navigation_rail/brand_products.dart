@@ -154,6 +154,3 @@ class Products extends StatelessWidget {
                     itemBuilder: (BuildContext context, int i) => Product()))));
   }
 }
-
-//19033212793015
-//205259

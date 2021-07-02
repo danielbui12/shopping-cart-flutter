@@ -108,21 +108,42 @@ class _UserInfoState extends State<UserInfo> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  _titleWrapper("User Bag"),
+                  _customDivider(),
+                  Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        splashColor: Theme.of(context).splashColor,
+                        child: ListTile(
+                            title: Text("Wishlist"),
+                            trailing: Icon(Icons.chevron_right_rounded),
+                            leading: Icon(
+                              Icons.favorite,
+                              color: Colors.pink,
+                            )),
+                        onTap: () =>
+                            Navigator.of(context).pushNamed("/wishlist"),
+                      )),
+                  Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        splashColor: Theme.of(context).splashColor,
+                        child: ListTile(
+                            title: Text("Cart"),
+                            trailing: Icon(Icons.chevron_right_rounded),
+                            leading:
+                                Icon(Icons.shopping_cart, color: Colors.green)),
+                        onTap: () => Navigator.of(context).pushNamed("/cart"),
+                      )),
                   _titleWrapper("User Information"),
-                  Container(
-                      alignment: Alignment.centerRight,
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      child: Divider(thickness: 1.0)),
+                  _customDivider(),
                   _userListTile(context, "Email", "example@example.com", 0),
                   _userListTile(context, "Phone", "0913115560", 1),
                   _userListTile(
                       context, "Shipping adress", "Hà Đông ,Hà Nội", 2),
                   _userListTile(context, "Joined Date", "12/01/2002", 3),
                   _titleWrapper("User Setting"),
-                  Container(
-                      alignment: Alignment.centerRight,
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      child: Divider(thickness: 1.0)),
+                  _customDivider(),
                   ListTileSwitch(
                     value: themeChange.darkTheme,
                     leading: Icon(icon),
@@ -222,5 +243,12 @@ class _UserInfoState extends State<UserInfo> {
         style: TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold),
       ),
     );
+  }
+
+  _customDivider() {
+    return Container(
+        padding: const EdgeInsets.only(left: 20.0),
+        width: MediaQuery.of(context).size.width * 0.8,
+        child: Divider(thickness: 1.0));
   }
 }
