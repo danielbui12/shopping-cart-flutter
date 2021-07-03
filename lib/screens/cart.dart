@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/const/Colors.dart';
 import 'package:myapp/provider/darkTheme.dart';
-import 'package:myapp/screens/cart/cart/cart_empty.dart';
-import 'package:myapp/screens/cart/cart/cart_full.dart';
+import 'package:myapp/screens/cart/cart_empty.dart';
+import 'package:myapp/screens/cart/cart_full.dart';
 import 'package:provider/provider.dart';
 
 class Cart extends StatelessWidget {

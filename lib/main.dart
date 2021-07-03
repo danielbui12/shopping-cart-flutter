@@ -3,10 +3,11 @@ import 'package:myapp/const/theme.dart';
 import 'package:myapp/provider/darkTheme.dart';
 import 'package:myapp/screens/bottom_bar.dart';
 import 'package:myapp/screens/cart.dart';
-import 'package:myapp/screens/cart/wish_list.dart/wish_list_full.dart';
 import 'package:myapp/screens/feeds.dart';
 import 'package:myapp/screens/home/navigation_rail/brand_products.dart';
 import 'package:provider/provider.dart';
+import 'screens/Feed/product_detail.dart';
+import 'screens/user/wish_list.dart/wish_list.dart';
 
 void main() {
   runApp(MyApp());
@@ -50,7 +51,8 @@ class _MyAppState extends State<MyApp> {
             "/brandItem":(BuildContext context) => BrandProducts(),
             "/feed": (BuildContext context) => Feed(),
             "/cart": (BuildContext context) => Cart(),
-            "/wishlist": (BuildContext context) => WishList()
+            "/wishlist": (BuildContext context) => WishList(),
+            "/productdetail": (BuildContext context) => ProductDetail()
           },
         );
       }),

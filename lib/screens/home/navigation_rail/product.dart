@@ -4,7 +4,7 @@ class Product extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () {},
+        onTap: () => Navigator.of(context).pushNamed("/productdetail"),
         child: Container(
           margin: const EdgeInsets.only(left: 20.0, right: 5.0),
           padding: const EdgeInsets.only(top: 18.0, bottom: 5.0, right: 20.0),
@@ -13,8 +13,8 @@ class Product extends StatelessWidget {
           child: Row(
             children: [
               Container(
-                width: 160,
-                height: 200,
+                  width: 160,
+                  height: 200,
                   child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -33,13 +33,14 @@ class Product extends StatelessWidget {
                 child: Container(
                   margin: const EdgeInsets.only(top: 20.0, bottom: 20.0),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).backgroundColor,
-                    boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey,
-                        offset: Offset(5.0, 5.0),
-                        blurRadius: 10.0)
-                  ], borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                      color: Theme.of(context).backgroundColor,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey,
+                            offset: Offset(5.0, 5.0),
+                            blurRadius: 10.0)
+                      ],
+                      borderRadius: BorderRadius.all(Radius.circular(10.0))),
                   width: 140.0,
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
@@ -53,12 +54,9 @@ class Product extends StatelessWidget {
                             fontSize: 20.0),
                       ),
                       SizedBox(height: 16.0),
-                      Text(
-                        "NAME",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14.0)
-                      ),
+                      Text("NAME",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 14.0)),
                       SizedBox(height: 16.0),
                     ],
                   ),
