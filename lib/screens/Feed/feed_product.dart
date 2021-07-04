@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 
 class FeedProducts extends StatefulWidget {
+  const FeedProducts(this.id, this.description, this.price, this.imgUrl,
+      this.quantity, this.isFavorite);
+  final String id;
+  final String description;
+  final String price;
+  final String imgUrl;
+  final int quantity;
+  final bool isFavorite;
+
   @override
   _FeedProductsState createState() => _FeedProductsState();
 }
@@ -28,8 +37,7 @@ class _FeedProductsState extends State<FeedProducts> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(8.0)),
                         image: DecorationImage(
-                            image: NetworkImage(
-                                "https://cdn.tgdd.vn/Products/Images/7077/229044/apple-watch-s6-40mm-vien-nhom-day-cao-su-01-600x600.jpg"),
+                            image: NetworkImage(widget.imgUrl),
                             fit: BoxFit.fill)),
                   ),
                 ),
@@ -56,17 +64,17 @@ class _FeedProductsState extends State<FeedProducts> {
                 children: <Widget>[
                   SizedBox(height: 8.0),
                   Text(
-                    "Apple Watch",
+                    widget.description,
                     overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
+                    maxLines: 1,
                     style:
                         TextStyle(fontSize: 15.0, fontWeight: FontWeight.w500),
                   ),
                   Container(
                     margin: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                    child: Text("\$ 177.79",
+                    child: Text("\$ ${widget.price}",
                         overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
+                        maxLines: 1,
                         style: TextStyle(
                             fontSize: 19.0, fontWeight: FontWeight.bold)),
                   ),
@@ -74,7 +82,7 @@ class _FeedProductsState extends State<FeedProducts> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        "Quantity: 12 left",
+                        "Quantity: ${widget.quantity} left",
                         style: TextStyle(color: Colors.grey),
                       ),
                       Material(

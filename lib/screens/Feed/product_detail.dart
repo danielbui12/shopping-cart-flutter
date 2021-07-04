@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/const/Colors.dart';
 import 'package:myapp/provider/darkTheme.dart';
-import 'package:myapp/screens/Feed/feed_product.dart';
-import 'package:myapp/screens/home/navigation_rail/product.dart';
 import 'package:provider/provider.dart';
 
 class ProductDetail extends StatefulWidget {
@@ -172,10 +170,11 @@ class _ProductDetailState extends State<ProductDetail> {
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: 7,
-                            itemBuilder: (BuildContext context, int i) =>
-                                Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: FeedProducts())),
+                            itemBuilder: (BuildContext context, int i) => Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                ////////////////////////////////////////////////////////////////////////
+                                child: null)),
+                        ///////////////////////////////////////////////////////////////////
                       ),
                     ],
                   ),
