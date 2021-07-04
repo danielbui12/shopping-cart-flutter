@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/provider/products.dart';
+import 'package:provider/provider.dart';
 
 import 'product.dart';
 
@@ -121,7 +123,7 @@ class _BrandProductsState extends State<BrandProducts> {
                           ),
                         )),
                   )),
-          Products(_brand, context)
+          ContentProduct(_brand, context)
         ],
       ),
     );
@@ -137,12 +139,14 @@ NavigationRailDestination buildNavigationRailDes(String brandName) {
       ));
 }
 
-class Products extends StatelessWidget {
+class ContentProduct extends StatelessWidget {
   final String brand;
-  Products(this.brand, BuildContext context);
+  ContentProduct(this.brand, BuildContext context);
 
   @override
   Widget build(BuildContext context) {
+    final _brandProductList =
+        Provider.of<ProductsProvider>(context).findCategoryByBrand(brand);
     return Expanded(
         child: Padding(
             padding: const EdgeInsets.fromLTRB(25.0, 8.0, 0, 0),
@@ -150,7 +154,10 @@ class Products extends StatelessWidget {
                 context: context,
                 removeRight: true,
                 child: ListView.builder(
-                    itemCount: 10,
-                    itemBuilder: (BuildContext context, int i) => Product()))));
+                    itemCount: _brandProductList.length,
+                    itemBuilder: (BuildContext context, int i) =>
+                        ChangeNotifierProvider.value(
+                            value: _brandProductList[i],
+                            child: ListProduct())))));
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/const/theme.dart';
 import 'package:myapp/provider/darkTheme.dart';
+import 'package:myapp/provider/products.dart';
+import 'package:myapp/screens/Feed/category_feed.dart';
 import 'package:myapp/screens/bottom_bar.dart';
 import 'package:myapp/screens/cart.dart';
 import 'package:myapp/screens/feeds.dart';
@@ -39,6 +41,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) {
           return darkThemeProvider;
         }),
+        ChangeNotifierProvider(create: (_)=> ProductsProvider())
       ],
       builder: (context, child) =>
           Consumer<DarkThemeProvider>(builder: (context, themeData, child) {
@@ -52,7 +55,8 @@ class _MyAppState extends State<MyApp> {
             "/feed": (BuildContext context) => Feed(),
             "/cart": (BuildContext context) => Cart(),
             "/wishlist": (BuildContext context) => WishList(),
-            "/productdetail": (BuildContext context) => ProductDetail()
+            "/productdetail": (BuildContext context) => ProductDetail(),
+            "/categoryfeed": (BuildContext context) => CategoryFeed()
           },
         );
       }),

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/models/product_model.dart';
+import 'package:provider/provider.dart';
 
-class Product extends StatelessWidget {
+class ListProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final productAttribute = Provider.of<Product>(context);
     return InkWell(
         onTap: () => Navigator.of(context).pushNamed("/productdetail"),
         child: Container(

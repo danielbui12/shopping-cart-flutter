@@ -4,10 +4,11 @@ import 'package:myapp/provider/products.dart';
 import 'package:myapp/screens/Feed/feed_product.dart';
 import 'package:provider/provider.dart';
 
-class Feed extends StatelessWidget {
+class CategoryFeed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final products = Provider.of<ProductsProvider>(context).products;
+    final categoryName = ModalRoute.of(context)!.settings.arguments as String;
+    final products = Provider.of<ProductsProvider>(context).findCategoryByName(categoryName);
     return Scaffold(
         body: StaggeredGridView.countBuilder(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
