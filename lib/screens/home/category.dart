@@ -23,7 +23,7 @@ class _CategoryState extends State<Category> {
       "categoryImgPath": "assets/images/CatFurniture.jpg"
     },
     {
-      "categoryName": "Beauty & health",
+      "categoryName": "Beauty & Health",
       "categoryImgPath": "assets/images/CatBeauty.jpg"
     },
     {

@@ -70,45 +70,16 @@ class _HomeState extends State<Home> {
                     itemCount: 7,
                     itemBuilder: (BuildContext context, int i) => Category(i)),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(left: 19.0, bottom: 19),
-                    child: Text(
-                      "Popular brands",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20.0),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: ElevatedButton(
-                      onPressed: () =>
-                          Navigator.of(context).pushNamed("/brandItem", arguments: {7}),
-                      child: Text("View all...",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).textSelectionColor)),
-                    ),
-                  )
-                ],
-              ),
-              // _horizontalTitle("Popular brands", () {}),
+              _horizontalTitle(
+                  "Popular brands",
+                  () => Navigator.of(context)
+                      .pushNamed("/brandItem", arguments: {7})),
               BrandsSwip(),
               SizedBox(height: 36.0),
-              _horizontalTitle("Popular products", () {}),
-              Container(
-                height: 258.0,
-                width: double.infinity,
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 10,
-                    itemBuilder: (BuildContext context, int i) => Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: PopularProducts())),
-              ),
+              _horizontalTitle("Popular products",
+                  () => Navigator.of(context).pushNamed("/feed", arguments: "popular")),
+              PopularProducts(),
+
               SizedBox(height: 20),
             ],
           ),
@@ -116,13 +87,13 @@ class _HomeState extends State<Home> {
       ),
     );
   }
-  
+
   Widget _horizontalTitle(String title, onPress) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.only(left: 19.0, bottom: 19),
+          padding: const EdgeInsets.only(left: 19.0, bottom: 19, top: 16.0),
           child: Text(
             title,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),

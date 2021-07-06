@@ -1,68 +1,99 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/provider/products.dart';
+import 'package:provider/provider.dart';
 
-class PopularProducts extends StatelessWidget {
+class PopularProducts extends StatefulWidget {
+  @override
+  _PopularProductsState createState() => _PopularProductsState();
+}
+
+class _PopularProductsState extends State<PopularProducts> {
   @override
   Widget build(BuildContext context) {
+    final productList = Provider.of<ProductsProvider>(context).products;
     return Container(
-      height: 250,
-      width: 200,
-      decoration: BoxDecoration(
-          color: Theme.of(context).backgroundColor,
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(16.0),
-              bottomRight: Radius.circular(16.0))),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              Container(
-                  height: 170,
+      height: 260.0,
+      width: double.infinity,
+      child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: productList.length,
+          itemBuilder: (BuildContext context, int i) => Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InkWell(
+                onTap: () => Navigator.of(context)
+                    .pushNamed("/productdetail", arguments: productList[i].id),
+                child: Container(
+                  height: 260,
+                  width: 180,
                   decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: NetworkImage(
-                              "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg"),
-                          fit: BoxFit.fill))),
-              Positioned(
-                  top: 5.0,
-                  right: 5.0,
-                  child: Icon(
-                    Icons.star_outlined,
-                    color: Colors.yellow,
-                  )),
-              Positioned(
-                  right: 5,
-                  bottom: 10,
-                  child: Container(
-                    padding: const EdgeInsets.all(8.0),
-                    color: Theme.of(context).backgroundColor,
-                    child: Text("PRICE",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12.0,
-                        )),
-                  ))
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text("TITLE", style: TextStyle(fontWeight: FontWeight.bold)),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Row(
-              children: [
-                Text(
-                  "Discriber",
-                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w500),
+                      color: Theme.of(context).backgroundColor,
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(16.0),
+                          bottomRight: Radius.circular(16.0))),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Stack(
+                        children: [
+                          Container(
+                              height: 170,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image:
+                                          NetworkImage(productList[i].imgUrl),
+                                      fit: BoxFit.fill))),
+                          Positioned(
+                              top: 5.0,
+                              right: 5.0,
+                              child: Icon(
+                                Icons.star_outlined,
+                                color: Colors.yellow,
+                              )),
+                          Positioned(
+                              right: 5,
+                              bottom: 10,
+                              child: Container(
+                                padding: const EdgeInsets.all(8.0),
+                                color: Theme.of(context).backgroundColor,
+                                child: Text("US \$ ${productList[i].price}",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12.0,
+                                    )),
+                              ))
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(productList[i].title,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 100,
+                              child: Text(
+                                productList[i].description,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            Spacer(),
+                            Icon(Icons.add_shopping_cart_rounded)
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-                Spacer(),
-                Icon(Icons.add_shopping_cart_rounded)
-              ],
-            ),
-          )
-        ],
-      ),
+              ))),
     );
   }
 }

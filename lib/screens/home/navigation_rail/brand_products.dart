@@ -19,7 +19,7 @@ class _BrandProductsState extends State<BrandProducts> {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     routeArgs = ModalRoute.of(context)!.settings.arguments.toString();
-    print(routeArgs.toString());
+    // print(routeArgs.toString());
     _selectedIndex = int.parse(routeArgs.substring(1, 2));
     _setBrand(_selectedIndex);
   }
@@ -46,7 +46,7 @@ class _BrandProductsState extends State<BrandProducts> {
         _currentBrand = "Nike";
         break;
       case 6:
-        _currentBrand = "SamSung";
+        _currentBrand = "Samsung";
         break;
       default:
         _currentBrand = "All";
@@ -117,7 +117,7 @@ class _BrandProductsState extends State<BrandProducts> {
                               buildNavigationRailDes("H&M"),
                               buildNavigationRailDes("Huawei"),
                               buildNavigationRailDes("Nike"),
-                              buildNavigationRailDes("SamSung"),
+                              buildNavigationRailDes("Samsung"),
                               buildNavigationRailDes("All"),
                             ],
                           ),
@@ -145,8 +145,13 @@ class ContentProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _productList =
+        Provider.of<ProductsProvider>(context, listen: false).products;
     final _brandProductList =
         Provider.of<ProductsProvider>(context).findCategoryByBrand(brand);
+    if (brand == "All")
+      for (int i = 0; i < _productList.length; i++)
+        _brandProductList.add(_productList[i]);
     return Expanded(
         child: Padding(
             padding: const EdgeInsets.fromLTRB(25.0, 8.0, 0, 0),

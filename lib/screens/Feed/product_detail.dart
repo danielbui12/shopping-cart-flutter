@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/const/Colors.dart';
+import 'package:myapp/models/product_model.dart';
 import 'package:myapp/provider/darkTheme.dart';
+import 'package:myapp/provider/products.dart';
+import 'package:myapp/screens/Feed/feed_product.dart';
 import 'package:provider/provider.dart';
 
 class ProductDetail extends StatefulWidget {
@@ -12,7 +15,9 @@ class _ProductDetailState extends State<ProductDetail> {
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context).darkTheme;
-
+    final productList = Provider.of<ProductsProvider>(context).products;
+    final productId = ModalRoute.of(context)?.settings.arguments as String;
+    final prodcutAttibute = Provider.of<ProductsProvider>(context).findById(productId);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -55,7 +60,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       width: double.infinity,
                       height: MediaQuery.of(context).size.height * 0.45,
                       child: Image.network(
-                          "https://cdn.tgdd.vn/Products/Images/7077/229044/apple-watch-s6-40mm-vien-nhom-day-cao-su-01-600x600.jpg"),
+                          prodcutAttibute.imgUrl),
                     ),
                     Positioned(
                       bottom: 6,
@@ -96,7 +101,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       Padding(
                         padding: const EdgeInsets.only(left: 16.0),
                         child: Text(
-                          "Title",
+                          prodcutAttibute.title,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 26.0),
                         ),
@@ -105,7 +110,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       Padding(
                         padding: const EdgeInsets.only(left: 16.0),
                         child: Text(
-                          "PRICE",
+                          "US \$ ${prodcutAttibute.price}",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18.0,
@@ -123,7 +128,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 16.0),
-                        child: Text("Describtion",
+                        child: Text(prodcutAttibute.description,
                             style: TextStyle(
                                 fontSize: 21.0, color: Colors.grey.shade600)),
                       ),
@@ -134,10 +139,10 @@ class _ProductDetailState extends State<ProductDetail> {
                           color: Colors.grey,
                         ),
                       ),
-                      _detail("Brand", "BrandName"),
-                      _detail("Quantities", "12 left"),
-                      _detail("Category", "CatName"),
-                      _detail("Popularity", "Popular"),
+                      _detail("Brand", prodcutAttibute.brand),
+                      _detail("Quantities", "${prodcutAttibute.quantity} left"),
+                      _detail("Category", prodcutAttibute.productCategoryName),
+                      _detail("Popularity", prodcutAttibute.isPopular?"Popular":"No"),
                       SizedBox(height: 20.0),
                       Container(
                         color: Theme.of(context).backgroundColor,
@@ -165,17 +170,17 @@ class _ProductDetailState extends State<ProductDetail> {
                       ),
                       SizedBox(height: 20.0),
                       Container(
-                        width: 195,
-                        height: 305,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 7,
-                            itemBuilder: (BuildContext context, int i) => Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                ////////////////////////////////////////////////////////////////////////
-                                child: null)),
-                        ///////////////////////////////////////////////////////////////////
-                      ),
+                          width: MediaQuery.of(context).size.width,
+                          height: 305,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: productList.length,
+                              itemBuilder: (BuildContext context, int i) =>
+                                  Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: ChangeNotifierProvider.value(
+                                          value: productList[i],
+                                          child: FeedProducts()))))
                     ],
                   ),
                 ),

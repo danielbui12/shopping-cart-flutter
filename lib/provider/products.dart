@@ -12,7 +12,7 @@ class ProductsProvider with ChangeNotifier {
         "Phones",
         "Samsung",
         65,
-        false,
+        true,
         false),
     Product(
         "Apple1",
@@ -23,7 +23,7 @@ class ProductsProvider with ChangeNotifier {
         "Watch",
         "Apple",
         12,
-        false,
+        true,
         false),
     Product(
         "LouisVutton1",
@@ -175,7 +175,7 @@ class ProductsProvider with ChangeNotifier {
         "54.98",
         'https://images-na.ssl-images-amazon.com/images/I/61dwB-2X-6L._SL1500_.jpg',
         'No brand',
-        'Beauty & health',
+        'Beauty & Health',
         8515,
         false,
         false),
@@ -186,7 +186,7 @@ class ProductsProvider with ChangeNotifier {
         "80.99",
         'https://images-na.ssl-images-amazon.com/images/I/81w9cll2RmL._SL1500_.jpg',
         'No brand',
-        'Beauty & health',
+        'Beauty & Health',
         3,
         false,
         false),
@@ -197,7 +197,7 @@ class ProductsProvider with ChangeNotifier {
         "50.99",
         'https://images-na.ssl-images-amazon.com/images/I/71E6h0kl3ZL._SL1500_.jpg',
         'No Brand',
-        'Beauty & health',
+        'Beauty & Health',
         38425,
         true,
         false),
@@ -208,7 +208,7 @@ class ProductsProvider with ChangeNotifier {
         "14,09",
         'https://images-na.ssl-images-amazon.com/images/I/61RkTTLRnNL._SL1134_.jpg',
         "No Brand",
-        'Beauty & health',
+        'Beauty & Health',
         384,
         false,
         false),
@@ -219,7 +219,7 @@ class ProductsProvider with ChangeNotifier {
         "50.99",
         'https://images-na.ssl-images-amazon.com/images/I/619pgKveCdL._SL1500_.jpg',
         'No Brand',
-        'Beauty & health',
+        'Beauty & Health',
         45,
         true,
         false),
@@ -230,7 +230,7 @@ class ProductsProvider with ChangeNotifier {
         "84.99",
         'https://images-na.ssl-images-amazon.com/images/I/61EsS5sSaCL._SL1500_.jpg',
         'No brand',
-        'Beauty & health',
+        'Beauty & Health',
         98432,
         true,
         false),
@@ -241,7 +241,7 @@ class ProductsProvider with ChangeNotifier {
         "890.99",
         'https://images-na.ssl-images-amazon.com/images/I/71e7ksQ-xyL._AC_SL1500_.jpg',
         'No brand',
-        'Beauty & health',
+        'Beauty & Health',
         3811,
         false,
         false),
@@ -507,7 +507,7 @@ class ProductsProvider with ChangeNotifier {
         'Apple',
         'Watch',
         951,
-        false,
+        true,
         false),
     Product(
         'YAMAY Smart Watch 2020 Ver',
@@ -551,7 +551,7 @@ class ProductsProvider with ChangeNotifier {
         'Samsung',
         'Watch',
         951,
-        false,
+        true,
         false),
     Product(
         'Huawei Watch 2 Sport Smartwatch',
@@ -580,11 +580,26 @@ class ProductsProvider with ChangeNotifier {
 
   List<Product> findCategoryByBrand(String brandName) {
     List<Product> _brandProductList = _products
-        .where((element) => element.brand
-            .toLowerCase()
-            .contains(brandName.toLowerCase()))
+        .where((element) =>
+            element.brand.toLowerCase().contains(brandName.toLowerCase()))
         .toList();
 
     return _brandProductList;
+  }
+
+  Product findById(String id) {
+    return _products.firstWhere((element) => element.id == id);
+  }
+
+  List<Product> get popularProducts {
+    return _products.where((element) => element.isPopular).toList();
+  }
+  
+  List<Product> searchQuery(String searchText) {
+    List<Product> _searchList = _products
+        .where((element) =>
+            element.title.toLowerCase().contains(searchText.toLowerCase()))
+        .toList();
+    return _searchList;
   }
 }
