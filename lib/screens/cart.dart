@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/const/Colors.dart';
+import 'package:myapp/provider/cart_provider.dart';
 import 'package:myapp/provider/darkTheme.dart';
 import 'package:myapp/screens/cart/cart_empty.dart';
 import 'package:myapp/screens/cart/cart_full.dart';
 import 'package:provider/provider.dart';
 
 class Cart extends StatelessWidget {
-  List cart = [1];
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context).darkTheme;
+    final cartProvider = Provider.of<CartProvider>(context);
+    final cart = cartProvider.cartItem;
     return cart.isEmpty
         ? Scaffold(
             body: CartEmpty(),
@@ -30,9 +32,15 @@ class Cart extends StatelessWidget {
             body: Container(
               margin: const EdgeInsets.only(bottom: 100.0),
               child: ListView.builder(
-                  itemCount: 5,
+                  itemCount: cart.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return CartFull();
+                    return CartFull(
+                        cart[index]!.id,
+                        cartProvider.cartItem.keys.toList()[index],
+                        cart[index]!.title,
+                        cart[index]!.quantity,
+                        cart[index]!.price,
+                        cart[index]!.imgUrl);
                   }),
             ),
             bottomSheet: _checkoutSection(themeChange),

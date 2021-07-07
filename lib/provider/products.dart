@@ -35,7 +35,7 @@ class ProductsProvider with ChangeNotifier {
         "LouisVutton",
         22,
         false,
-        false),
+        true),
     Product(
         'Samsung Galaxy A10s',
         'Samsung Galaxy A10s',
@@ -57,7 +57,7 @@ class ProductsProvider with ChangeNotifier {
         "Phones",
         6423,
         true,
-        false),
+        true),
     Product(
         'Huawei P40 Pro',
         'Huawei P40 Pro',
@@ -90,7 +90,7 @@ class ProductsProvider with ChangeNotifier {
         "Phones",
         2654,
         false,
-        false),
+        true),
     Product(
         'Hanes Mens ',
         'Long Sleeve Beefy Henley Shirt',
@@ -123,7 +123,7 @@ class ProductsProvider with ChangeNotifier {
         'Clothes',
         49847,
         true,
-        false),
+        true),
     Product(
         'Tanjun Sneakers',
         'Tanjun Sneakers',
@@ -156,7 +156,7 @@ class ProductsProvider with ChangeNotifier {
         'Clothes',
         8941,
         true,
-        false),
+        true),
     Product(
         'Long SleeveWoman',
         'Long Sleeve woman',
@@ -200,7 +200,7 @@ class ProductsProvider with ChangeNotifier {
         'Beauty & Health',
         38425,
         true,
-        false),
+        true),
     Product(
         'Ultra Shea Body Cream',
         'Ultra Shea Body Cream',
@@ -244,7 +244,7 @@ class ProductsProvider with ChangeNotifier {
         'Beauty & Health',
         3811,
         false,
-        false),
+        true),
     Product(
         '15 5000 Laptop',
         '15 5000 Laptop',
@@ -277,7 +277,7 @@ class ProductsProvider with ChangeNotifier {
         'Laptops',
         815,
         false,
-        false),
+        true),
     Product(
         'New Apple MacBook Pro with Apple',
         'New Apple MacBook Pro with Apple',
@@ -310,7 +310,7 @@ class ProductsProvider with ChangeNotifier {
         'Laptops',
         815,
         false,
-        false),
+        true),
     Product(
         'Apple MacBook Air',
         'Apple MacBook Air',
@@ -376,7 +376,7 @@ class ProductsProvider with ChangeNotifier {
         'Furniture',
         9145,
         false,
-        false),
+        true),
     Product(
         'Outdoor Patio ',
         'Outdoor Patio ',
@@ -431,7 +431,7 @@ class ProductsProvider with ChangeNotifier {
         'Watch',
         156,
         true,
-        false),
+        true),
     Product(
         'Garmin Forerunner 45S',
         'Garmin Forerunner 45S',
@@ -486,7 +486,7 @@ class ProductsProvider with ChangeNotifier {
         'Watch',
         951,
         false,
-        false),
+        true),
     Product(
         'New Apple Watch Series',
         'New Apple Watch Series',
@@ -563,7 +563,7 @@ class ProductsProvider with ChangeNotifier {
         'Watch',
         951,
         true,
-        false),
+        true),
   ];
 
   List<Product> get products => _products;

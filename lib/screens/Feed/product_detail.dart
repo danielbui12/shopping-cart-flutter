@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/const/Colors.dart';
 import 'package:myapp/models/product_model.dart';
+import 'package:myapp/provider/cart_provider.dart';
 import 'package:myapp/provider/darkTheme.dart';
 import 'package:myapp/provider/products.dart';
 import 'package:myapp/screens/Feed/feed_product.dart';
@@ -12,12 +13,26 @@ class ProductDetail extends StatefulWidget {
 }
 
 class _ProductDetailState extends State<ProductDetail> {
+  _Alert(BuildContext context) {
+    final snackbar = SnackBar(
+        duration: Duration(milliseconds: 500),
+        content: Text("Added to cart!",
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 20.0,
+                fontWeight: FontWeight.w600)),
+        backgroundColor: Colors.green);
+    ScaffoldMessenger.of(context).showSnackBar(snackbar);
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context).darkTheme;
     final productList = Provider.of<ProductsProvider>(context).products;
     final productId = ModalRoute.of(context)?.settings.arguments as String;
-    final prodcutAttibute = Provider.of<ProductsProvider>(context).findById(productId);
+    final productAttribute =
+        Provider.of<ProductsProvider>(context).findById(productId);
+    final cartProvider = Provider.of<CartProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -59,8 +74,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           BoxDecoration(color: Colors.black12),
                       width: double.infinity,
                       height: MediaQuery.of(context).size.height * 0.45,
-                      child: Image.network(
-                          prodcutAttibute.imgUrl),
+                      child: Image.network(productAttribute.imgUrl),
                     ),
                     Positioned(
                       bottom: 6,
@@ -101,7 +115,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       Padding(
                         padding: const EdgeInsets.only(left: 16.0),
                         child: Text(
-                          prodcutAttibute.title,
+                          productAttribute.title,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 26.0),
                         ),
@@ -110,7 +124,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       Padding(
                         padding: const EdgeInsets.only(left: 16.0),
                         child: Text(
-                          "US \$ ${prodcutAttibute.price}",
+                          "US \$ ${productAttribute.price}",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18.0,
@@ -128,7 +142,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 16.0),
-                        child: Text(prodcutAttibute.description,
+                        child: Text(productAttribute.description,
                             style: TextStyle(
                                 fontSize: 21.0, color: Colors.grey.shade600)),
                       ),
@@ -139,10 +153,12 @@ class _ProductDetailState extends State<ProductDetail> {
                           color: Colors.grey,
                         ),
                       ),
-                      _detail("Brand", prodcutAttibute.brand),
-                      _detail("Quantities", "${prodcutAttibute.quantity} left"),
-                      _detail("Category", prodcutAttibute.productCategoryName),
-                      _detail("Popularity", prodcutAttibute.isPopular?"Popular":"No"),
+                      _detail("Brand", productAttribute.brand),
+                      _detail(
+                          "Quantities", "${productAttribute.quantity} left"),
+                      _detail("Category", productAttribute.productCategoryName),
+                      _detail("Popularity",
+                          productAttribute.isPopular ? "Popular" : "No"),
                       SizedBox(height: 20.0),
                       Container(
                         color: Theme.of(context).backgroundColor,
@@ -206,7 +222,17 @@ class _ProductDetailState extends State<ProductDetail> {
                               color: Colors.white,
                               fontSize: 16.0),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          cartProvider.addToCart(
+                              productId,
+                              double.parse(productAttribute.price),
+                              productAttribute.title,
+                              productAttribute.imgUrl);
+                          _Alert(context);
+                          print(cartProvider.cartItem.length);
+                          // print(
+                          //     "id: $productId,price: ${double.parse(productAttribute.price)},title:  ${productAttribute.title} ${productAttribute.imgUrl}");
+                        },
                       ),
                     )),
                 Expanded(
