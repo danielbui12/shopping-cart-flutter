@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/provider/cart_provider.dart';
+import 'package:myapp/provider/favorite_provider.dart';
 import 'package:myapp/provider/products.dart';
 import 'package:provider/provider.dart';
 
@@ -25,6 +26,7 @@ class _PopularProductsState extends State<PopularProducts> {
   Widget build(BuildContext context) {
     final productList = Provider.of<ProductsProvider>(context).popularProducts;
     final cartProvider = Provider.of<CartProvider>(context);
+    final wishlistProvider = Provider.of<FavoriteProvider>(context);
     return Container(
       height: 261.0,
       width: double.infinity,
@@ -61,7 +63,10 @@ class _PopularProductsState extends State<PopularProducts> {
                               right: 5.0,
                               child: Icon(
                                 Icons.star_outlined,
-                                color: Colors.yellow,
+                                color: wishlistProvider.favoriteItem
+                                        .containsKey(productList[i].id)
+                                    ? Colors.yellow
+                                    : Colors.grey,
                               )),
                           Positioned(
                               right: 5,

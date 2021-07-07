@@ -3,6 +3,7 @@ import 'package:myapp/const/Colors.dart';
 import 'package:myapp/models/product_model.dart';
 import 'package:myapp/provider/cart_provider.dart';
 import 'package:myapp/provider/darkTheme.dart';
+import 'package:myapp/provider/favorite_provider.dart';
 import 'package:myapp/provider/products.dart';
 import 'package:myapp/screens/Feed/feed_product.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +14,6 @@ class ProductDetail extends StatefulWidget {
 }
 
 class _ProductDetailState extends State<ProductDetail> {
-  int a = 2;
   _Alert(BuildContext context) {
     final snackbar = SnackBar(
         duration: Duration(milliseconds: 200),
@@ -33,6 +33,7 @@ class _ProductDetailState extends State<ProductDetail> {
     final productId = ModalRoute.of(context)?.settings.arguments as String;
     final productAttribute =
         Provider.of<ProductsProvider>(context).findById(productId);
+    final wishlist = Provider.of<FavoriteProvider>(context);
     final cartProvider = Provider.of<CartProvider>(context);
     return Scaffold(
       appBar: AppBar(
@@ -256,12 +257,21 @@ class _ProductDetailState extends State<ProductDetail> {
                     child: Container(
                       height: 50.0,
                       child: RaisedButton(
-                        color: Colors.red.shade400,
+                        color: wishlist.favoriteItem
+                                .containsKey(productAttribute.id)
+                            ? Colors.red.shade400
+                            : Colors.grey,
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         shape: RoundedRectangleBorder(side: BorderSide.none),
                         child: Icon(Icons.favorite_outline_rounded,
                             color: Colors.white),
-                        onPressed: () {},
+                        onPressed: () {
+                          wishlist.addToFavorite(
+                              productAttribute.id,
+                              double.parse(productAttribute.price),
+                              productAttribute.title,
+                              productAttribute.imgUrl);
+                        },
                       ),
                     ))
               ],

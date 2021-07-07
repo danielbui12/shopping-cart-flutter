@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/const/theme.dart';
 import 'package:myapp/provider/cart_provider.dart';
 import 'package:myapp/provider/darkTheme.dart';
+import 'package:myapp/provider/favorite_provider.dart';
 import 'package:myapp/provider/products.dart';
 import 'package:myapp/screens/Feed/category_feed.dart';
 import 'package:myapp/screens/bottom_bar.dart';
@@ -39,11 +40,10 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) {
-          return darkThemeProvider;
-        }),
+        ChangeNotifierProvider(create: (_) => darkThemeProvider),
         ChangeNotifierProvider(create: (_) => ProductsProvider()),
-        ChangeNotifierProvider(create: (_) => CartProvider())
+        ChangeNotifierProvider(create: (_) => CartProvider()),
+        ChangeNotifierProvider(create: (_) => FavoriteProvider())
       ],
       builder: (context, child) =>
           Consumer<DarkThemeProvider>(builder: (context, themeData, child) {

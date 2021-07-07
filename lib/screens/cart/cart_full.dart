@@ -65,7 +65,7 @@ class _CartFullState extends State<CartFull> {
                         ),
                         IconButton(
                           color: Theme.of(context).buttonColor,
-                          icon: Icon(Icons.delete_outline),
+                          icon: Icon(Icons.close, color: Colors.red),
                           onPressed: () {
                             alert.alert(
                                 "Remove item!",
