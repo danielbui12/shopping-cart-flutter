@@ -4,7 +4,7 @@ import 'package:myapp/models/cart_attribute.dart';
 class CartProvider with ChangeNotifier {
   Map<String, CartAttribute> _cartItem = {};
 
-  Map<String, CartAttribute> get cartItem => _cartItem;
+  Map<String, CartAttribute> get cartItem => {..._cartItem};
 
   double get totalAmout {
     var total = 0.0;
@@ -30,6 +30,31 @@ class CartProvider with ChangeNotifier {
           () => CartAttribute(
               DateTime.now().toString(), title, 1, price, imgUrl));
     }
+    notifyListeners();
+  }
+
+  void reductQuantityItems(
+      String id, double price, String title, String imgUrl) {
+    if (_cartItem.containsKey(id)) {
+      _cartItem.update(
+          id,
+          (existingItem) => CartAttribute(
+              existingItem.id,
+              existingItem.title,
+              existingItem.quantity - 1,
+              existingItem.price,
+              existingItem.imgUrl));
+    }
+    notifyListeners();
+  }
+
+  void removeItem(String productId) {
+    _cartItem.remove(productId);
+    notifyListeners();
+  }
+
+  void clearCart() {
+    _cartItem.clear();
     notifyListeners();
   }
 }

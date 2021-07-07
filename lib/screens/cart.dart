@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/const/Colors.dart';
+import 'package:myapp/const/alert.dart';
+import 'package:myapp/models/cart_attribute.dart';
 import 'package:myapp/provider/cart_provider.dart';
 import 'package:myapp/provider/darkTheme.dart';
 import 'package:myapp/screens/cart/cart_empty.dart';
@@ -7,11 +9,13 @@ import 'package:myapp/screens/cart/cart_full.dart';
 import 'package:provider/provider.dart';
 
 class Cart extends StatelessWidget {
+  Alert alert = Alert();
+
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context).darkTheme;
     final cartProvider = Provider.of<CartProvider>(context);
-    final cart = cartProvider.cartItem;
+    final cart = cartProvider.cartItem.values.toList();
     return cart.isEmpty
         ? Scaffold(
             body: CartEmpty(),
@@ -24,7 +28,10 @@ class Cart extends StatelessWidget {
                 Container(
                     margin: const EdgeInsets.only(right: 16.0),
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        alert.alert("Clear cart!", "Your cart will be cleared",
+                            () => cartProvider.clearCart(), context);
+                      },
                       icon: Icon(Icons.delete_outline),
                     ))
               ],
@@ -33,21 +40,24 @@ class Cart extends StatelessWidget {
               margin: const EdgeInsets.only(bottom: 100.0),
               child: ListView.builder(
                   itemCount: cart.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return CartFull(
-                        cart[index]!.id,
-                        cartProvider.cartItem.keys.toList()[index],
-                        cart[index]!.title,
-                        cart[index]!.quantity,
-                        cart[index]!.price,
-                        cart[index]!.imgUrl);
-                  }),
+                  itemBuilder: (BuildContext context, int index) =>
+                      ChangeNotifierProvider<CartAttribute>.value(
+                          value: CartAttribute(
+                              cart[index].id,
+                              cart[index].title,
+                              cart[index].quantity,
+                              cart[index].price,
+                              cart[index].imgUrl),
+                          child: CartFull(
+                              cartProvider.cartItem.keys.toList()[index]))),
+
+              // cartProvider.cartItem.keys.toList()[index]
             ),
-            bottomSheet: _checkoutSection(themeChange),
+            bottomSheet: _checkoutSection(themeChange, cartProvider.totalAmout),
           );
   }
 
-  _checkoutSection(bool themeChange) {
+  _checkoutSection(bool themeChange, double total) {
     return Container(
       decoration: BoxDecoration(
           border: Border(
@@ -99,7 +109,7 @@ class Cart extends StatelessWidget {
                   fontWeight: FontWeight.w600),
             ),
             Text(
-              "\$130.000",
+              "\$ " + total.toStringAsFixed(3),
               style: TextStyle(
                   color: Colors.blue,
                   fontSize: 16.0,

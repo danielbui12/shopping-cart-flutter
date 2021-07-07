@@ -12,10 +12,10 @@ class _FeedProductsState extends State<FeedProducts> {
   Widget build(BuildContext context) {
     final productsAttributes = Provider.of<Product>(context);
     return InkWell(
-      onTap: () => Navigator.of(context).pushNamed("/productdetail", arguments: productsAttributes.id),
+      onTap: () => Navigator.of(context)
+          .pushNamed("/productdetail", arguments: productsAttributes.id),
       child: Container(
         width: 190.0,
-        height: 305.0,
         decoration: BoxDecoration(
             color: Theme.of(context).backgroundColor,
             borderRadius: BorderRadius.all(Radius.circular(8.0))),

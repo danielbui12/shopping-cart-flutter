@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/const/Colors.dart';
+import 'package:myapp/const/alert.dart';
+import 'package:myapp/models/cart_attribute.dart';
+import 'package:myapp/provider/cart_provider.dart';
 import 'package:myapp/provider/darkTheme.dart';
 import 'package:provider/provider.dart';
 
 class CartFull extends StatefulWidget {
-  final String id;
   final String productId;
-  final String title;
-  final int quantity;
-  final double price;
-  final String imgUrl;
 
-  const CartFull(this.id, this.productId, this.title, this.quantity, this.price, this.imgUrl);
-  
+  const CartFull(this.productId);
+
   @override
   _CartFullState createState() => _CartFullState();
 }
@@ -20,12 +18,17 @@ class CartFull extends StatefulWidget {
 class _CartFullState extends State<CartFull> {
   @override
   Widget build(BuildContext context) {
+    Alert alert = Alert();
     final themeChange = Provider.of<DarkThemeProvider>(context).darkTheme;
-    double subTotal = widget.price * widget.quantity; 
+    final cartProvider = Provider.of<CartProvider>(context);
+    final cartItems = Provider.of<CartAttribute>(context);
+    double subTotal = cartItems.price * cartItems.quantity;
+    // String price =subTotal.toStringAsFixed(2);
     return InkWell(
-      onTap: () => Navigator.of(context).pushNamed("/productdetail", arguments: widget.productId),
+      onTap: () => Navigator.of(context)
+          .pushNamed("/productdetail", arguments: widget.productId),
       child: Container(
-        height: 153.0,
+        height: 170.0,
         margin: const EdgeInsets.all(10.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
@@ -40,9 +43,7 @@ class _CartFullState extends State<CartFull> {
               width: 140.0,
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: NetworkImage(
-                          widget.imgUrl))),
+                      fit: BoxFit.fill, image: NetworkImage(cartItems.imgUrl))),
             ),
             Flexible(
               child: Padding(
@@ -55,7 +56,7 @@ class _CartFullState extends State<CartFull> {
                       children: <Widget>[
                         Flexible(
                           child: Text(
-                            widget.title,
+                            cartItems.title,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -65,7 +66,13 @@ class _CartFullState extends State<CartFull> {
                         IconButton(
                           color: Theme.of(context).buttonColor,
                           icon: Icon(Icons.delete_outline),
-                          onPressed: () {},
+                          onPressed: () {
+                            alert.alert(
+                                "Remove item!",
+                                "Product will be removed from the cart!",
+                                () => cartProvider.removeItem(widget.productId),
+                                context);
+                          },
                         )
                       ],
                     ),
@@ -74,7 +81,7 @@ class _CartFullState extends State<CartFull> {
                         Text("Prices: "),
                         SizedBox(width: 5.0),
                         Text(
-                          "\$ ${widget.price}",
+                          "\$ ${cartItems.price}",
                           style: TextStyle(
                               fontSize: 16.0, fontWeight: FontWeight.bold),
                         )
@@ -83,7 +90,7 @@ class _CartFullState extends State<CartFull> {
                     SizedBox(height: 8.0),
                     _TextWrapper(
                         "Sub Total: ",
-                        "\$ $subTotal",
+                        "\$ " + subTotal.toStringAsFixed(2),
                         !themeChange
                             ? Theme.of(context).accentColor
                             : Colors.blueGrey.shade400),
@@ -101,7 +108,19 @@ class _CartFullState extends State<CartFull> {
                         ),
                         Row(
                           children: <Widget>[
-                            _AcitonButton("-", 32.0, Colors.red),
+                            _AcitonButton(
+                                "-",
+                                36.0,
+                                cartItems.quantity > 1
+                                    ? Colors.red
+                                    : Colors.grey,
+                                cartItems.quantity > 1
+                                    ? () => cartProvider.reductQuantityItems(
+                                        widget.productId,
+                                        cartItems.price,
+                                        cartItems.title,
+                                        cartItems.imgUrl)
+                                    : null),
                             Container(
                               decoration: BoxDecoration(
                                   gradient: LinearGradient(colors: [
@@ -109,15 +128,25 @@ class _CartFullState extends State<CartFull> {
                                 ColorsConsts.gradiendLEnd
                               ])),
                               width: MediaQuery.of(context).size.width * 0.12,
-                              margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
                               child: Text(
-                                "1",
+                                "${cartItems.quantity}",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 16.0),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16.0),
                               ),
                             ),
-                            _AcitonButton("+", 24.0, Colors.green)
+                            _AcitonButton(
+                                "+",
+                                28.0,
+                                Colors.green,
+                                () => cartProvider.addToCart(
+                                    widget.productId,
+                                    cartItems.price,
+                                    cartItems.title,
+                                    cartItems.imgUrl))
                           ],
                         )
                       ],
@@ -146,13 +175,16 @@ class _CartFullState extends State<CartFull> {
     );
   }
 
-  Widget _AcitonButton(String text, double fontSize, Color color) {
-    return InkWell(
-      onTap: () {},
-      child: Text(
-        text,
-        style: TextStyle(
-            color: color, fontWeight: FontWeight.bold, fontSize: fontSize),
+  Widget _AcitonButton(String text, double fontSize, Color color, onPress) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
+      child: InkWell(
+        onTap: onPress,
+        child: Text(
+          text,
+          style: TextStyle(
+              color: color, fontWeight: FontWeight.bold, fontSize: fontSize),
+        ),
       ),
     );
   }

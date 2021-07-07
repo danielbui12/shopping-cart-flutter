@@ -13,9 +13,10 @@ class ProductDetail extends StatefulWidget {
 }
 
 class _ProductDetailState extends State<ProductDetail> {
+  int a = 2;
   _Alert(BuildContext context) {
     final snackbar = SnackBar(
-        duration: Duration(milliseconds: 500),
+        duration: Duration(milliseconds: 200),
         content: Text("Added to cart!",
             style: TextStyle(
                 color: Colors.white,
@@ -187,7 +188,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       SizedBox(height: 20.0),
                       Container(
                           width: MediaQuery.of(context).size.width,
-                          height: 305,
+                          height: 345,
                           child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: productList.length,
@@ -229,9 +230,6 @@ class _ProductDetailState extends State<ProductDetail> {
                               productAttribute.title,
                               productAttribute.imgUrl);
                           _Alert(context);
-                          print(cartProvider.cartItem.length);
-                          // print(
-                          //     "id: $productId,price: ${double.parse(productAttribute.price)},title:  ${productAttribute.title} ${productAttribute.imgUrl}");
                         },
                       ),
                     )),
@@ -280,7 +278,7 @@ class _ProductDetailState extends State<ProductDetail> {
       child: Row(
         children: [
           Text(
-            "${content}:  ",
+            "$content:  ",
             style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
           ),
           Text(

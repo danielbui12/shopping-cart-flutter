@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/provider/cart_provider.dart';
 import 'package:myapp/provider/products.dart';
 import 'package:provider/provider.dart';
 
@@ -8,11 +9,24 @@ class PopularProducts extends StatefulWidget {
 }
 
 class _PopularProductsState extends State<PopularProducts> {
+  _Alert(BuildContext context) {
+    final snackbar = SnackBar(
+        duration: Duration(milliseconds: 200),
+        content: Text("Added to cart!",
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 20.0,
+                fontWeight: FontWeight.w600)),
+        backgroundColor: Colors.green);
+    ScaffoldMessenger.of(context).showSnackBar(snackbar);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final productList = Provider.of<ProductsProvider>(context).products;
+    final productList = Provider.of<ProductsProvider>(context).popularProducts;
+    final cartProvider = Provider.of<CartProvider>(context);
     return Container(
-      height: 260.0,
+      height: 261.0,
       width: double.infinity,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
@@ -86,7 +100,16 @@ class _PopularProductsState extends State<PopularProducts> {
                               ),
                             ),
                             Spacer(),
-                            Icon(Icons.add_shopping_cart_rounded)
+                            InkWell(
+                                onTap: () {
+                                  cartProvider.addToCart(
+                                      productList[i].id,
+                                      double.parse(productList[i].price),
+                                      productList[i].title,
+                                      productList[i].imgUrl);
+                                  _Alert(context);
+                                },
+                                child: Icon(Icons.add_shopping_cart_rounded))
                           ],
                         ),
                       )

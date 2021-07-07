@@ -76,10 +76,11 @@ class _HomeState extends State<Home> {
                       .pushNamed("/brandItem", arguments: {7})),
               BrandsSwip(),
               SizedBox(height: 36.0),
-              _horizontalTitle("Popular products",
-                  () => Navigator.of(context).pushNamed("/feed", arguments: "popular")),
+              _horizontalTitle(
+                  "Popular products",
+                  () => Navigator.of(context)
+                      .pushNamed("/feed", arguments: "popular")),
               PopularProducts(),
-
               SizedBox(height: 20),
             ],
           ),

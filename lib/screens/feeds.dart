@@ -10,7 +10,7 @@ class Feed extends StatelessWidget {
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductsProvider>(context);
     List<Product> products = productProvider.products;
-    final popular = ModalRoute.of(context)?.settings.arguments as String;
+    final popular = ModalRoute.of(context)?.settings.arguments;
     if (popular == "popular") {
       products = productProvider.popularProducts;
     }
@@ -23,7 +23,7 @@ class Feed extends StatelessWidget {
           ChangeNotifierProvider.value(
               value: products[index], child: FeedProducts()),
       staggeredTileBuilder: (int index) =>
-          new StaggeredTile.count(2, index.isEven ? 3 : 3.75),
+          new StaggeredTile.count(2, index.isEven ? 3.25 : 3.75),
       mainAxisSpacing: 16.0,
       crossAxisSpacing: 16.0,
     ));
