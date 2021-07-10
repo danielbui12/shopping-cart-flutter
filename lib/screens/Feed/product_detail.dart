@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/const/Colors.dart';
 import 'package:myapp/models/product_model.dart';
@@ -43,23 +44,45 @@ class _ProductDetailState extends State<ProductDetail> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(right: 14.0),
-                child: InkWell(
-                  child: Icon(
-                    Icons.favorite_outline_rounded,
-                    color: Colors.pink,
+                child: Consumer<FavoriteProvider>(
+                  builder: (_, wishlist, child) => Badge(
+                    animationType: BadgeAnimationType.slide,
+                    toAnimate: true,
+                    position: BadgePosition(top: -10, end: -10),
+                    badgeContent: Text(
+                      wishlist.favoriteItem.length.toString(),
+                      style: TextStyle(color: Colors.white, fontSize: 10.0),
+                    ),
+                    child: InkWell(
+                      child: Icon(
+                        Icons.favorite_outline_rounded,
+                        color: Colors.pink,
+                      ),
+                      onTap: () => Navigator.of(context).pushNamed("/wishlist"),
+                    ),
                   ),
-                  onTap: () => Navigator.of(context).pushNamed("/wishlist"),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(right: 14.0),
-                child: InkWell(
-                    child: Icon(
-                      Icons.shopping_cart,
-                      color: Colors.green,
+              Consumer<CartProvider>(
+                builder: (_, cart, child) => Badge(
+                    animationType: BadgeAnimationType.slide,
+                    toAnimate: true,
+                    position: BadgePosition(top: -10, end: 0),
+                    badgeContent: Text(
+                      cartProvider.cartItem.length.toString(),
+                      style: TextStyle(color: Colors.white, fontSize: 10.0),
                     ),
-                    onTap: () => Navigator.of(context).pushNamed("/cart")),
-              )
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 14.0),
+                      child: InkWell(
+                          child: Icon(
+                            Icons.shopping_cart,
+                            color: Colors.green,
+                          ),
+                          onTap: () =>
+                              Navigator.of(context).pushNamed("/cart")),
+                    )),
+              ),
             ],
           )
         ],

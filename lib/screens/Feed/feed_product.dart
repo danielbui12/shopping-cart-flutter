@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/models/product_model.dart';
 import 'package:provider/provider.dart';
@@ -35,19 +36,16 @@ class _FeedProductsState extends State<FeedProducts> {
                             fit: BoxFit.fill)),
                   ),
                 ),
-                Container(
-                    decoration: BoxDecoration(
-                        color: Colors.pink,
-                        borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                    width: 50,
-                    height: 25,
-                    child: Center(
-                      child: Text(
-                        "NEW",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.white),
-                      ),
-                    ))
+                Badge(
+                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                  shape: BadgeShape.square,
+                  animationType: BadgeAnimationType.slide,
+                  badgeContent: Text(
+                    "NEW",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.white),
+                  ),
+                ),
               ],
             ),
             Container(
