@@ -1,6 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/models/product_model.dart';
+import 'package:myapp/screens/Feed/product_dialog.dart';
 import 'package:provider/provider.dart';
 
 class FeedProducts extends StatefulWidget {
@@ -80,7 +81,12 @@ class _FeedProductsState extends State<FeedProducts> {
                       Material(
                         color: Colors.transparent,
                         child: InkWell(
-                            onTap: () {},
+                            onTap: () async {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      FeedDiaLog(productsAttributes.id));
+                            },
                             child: Icon(
                               Icons.more_horiz,
                               color: Colors.grey,

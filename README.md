@@ -1,6 +1,12 @@
-# myapp
+# Shopping App
 
-A new Flutter project.
+A clone shopping app: 
+- Dynamic data.
+- Much fearture: Favorite list, dark mode, ...
+- [To have a clearly, detaily look of my app, go to this.]()
+
+
+
 
 ## Getting Started
 
