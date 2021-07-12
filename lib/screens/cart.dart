@@ -18,6 +18,7 @@ class Cart extends StatelessWidget {
     final cart = cartProvider.cartItem.values.toList();
     return cart.isEmpty
         ? Scaffold(
+            appBar: AppBar(),
             body: CartEmpty(),
           )
         : Scaffold(

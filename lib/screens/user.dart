@@ -166,7 +166,17 @@ class _UserInfoState extends State<UserInfo> {
                     switchActiveColor: Colors.indigo,
                     title: Text(switchMode),
                   ),
-                  _userListTile(context, "Logout", "", 4),
+                  Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        splashColor: Theme.of(context).splashColor,
+                        child: ListTile(
+                            title: Text("Log out"),
+                            leading: Icon(_userTitleIcons[4])),
+                        onTap: () => Navigator.of(context)
+                            .pushNamedAndRemoveUntil(
+                                "/login", (route) => false),
+                      ))
                 ],
               ),
             )

@@ -59,14 +59,6 @@ class _SearchState extends State<Search> {
                 ),
                 stackChild: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black12,
-                            spreadRadius: 1,
-                            blurRadius: 3)
-                      ]),
                   child: TextField(
                     controller: _searchTextController,
                     minLines: 1,
