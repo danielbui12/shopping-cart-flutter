@@ -9,6 +9,7 @@ import 'package:myapp/screens/bottom_bar.dart';
 import 'package:myapp/screens/cart.dart';
 import 'package:myapp/screens/feeds.dart';
 import 'package:myapp/screens/home/navigation_rail/brand_products.dart';
+import 'package:myapp/screens/user.dart';
 import 'package:provider/provider.dart';
 import 'screens/Feed/product_detail.dart';
 import 'screens/user/wish_list.dart/wish_list.dart';
@@ -53,6 +54,7 @@ class _MyAppState extends State<MyApp> {
           theme: Styles.themeData(darkThemeProvider.darkTheme, context),
           home: BottomBar(),
           routes: <String, WidgetBuilder>{
+            "/user": (BuildContext context) => UserInfo(),
             "/brandItem": (BuildContext context) => BrandProducts(),
             "/feed": (BuildContext context) => Feed(),
             "/cart": (BuildContext context) => Cart(),
